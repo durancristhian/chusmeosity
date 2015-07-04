@@ -1,0 +1,11 @@
+#ignore thumbnails created by windows
+thumbs.db
+
+#ignore nodejs modules
+node_modules
+
+#ignore log file (contains the error's description)
+npm-debug.log
+
+#ignore build folder (we don't push to bitbucket the new versions of the app)
+build

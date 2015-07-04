@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/basscss.min.css">
+	<link rel="stylesheet" href="css/ionicons.min.css">
+	<link rel="stylesheet" href="css/raleway.css">
+	<link rel="stylesheet" href="css/tooltipster.css">
+	<link rel="stylesheet" href="css/tooltipster-noir.css">
+	<link rel="stylesheet" href="css/basscss-custom.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/header.css">
+	<link rel="stylesheet" href="css/project.css">
+	<link rel="stylesheet" href="css/new-project.css">
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/jquery.tooltipster.min.js"></script>
+	<script src="js/mustache.min.js"></script>
+	<script src="js/get-version-number.js"></script>
+	<script src="js/window-buttons.js"></script>
+	<script src="js/chusmeosity.js"></script>
+</head>
+<body>
+	<header class="header">
+		<img src="images/chusmeosity.png" alt="chusmeosity logo" class="header--logo inline-block middle ml1 	mr1">
+		<h1 class="header--title m0 mr2 inline-block middle">Chusmeosity</h1>
+		<span id="version-number" class="header--version-number inline-block middle"></span>
+		<ul class="header--controls m0 p0 right">
+			<li class="inline-block middle">
+				<a href="#!" id="show-dev-tools" class="header--link block tooltip" title="Developer Tools">
+					<span class="ion-gear-b"></span>
+				</a>
+			</li>
+			<li class="inline-block middle">
+				<a href="#!" id="minimize" class="header--link block">
+					<span class="ion-minus-round"></span>
+				</a>
+			</li>
+			<li class="inline-block middle">
+				<a href="#!" id="maximize" class="header--link block">
+					<span class="ion-arrow-shrink"></span>
+				</a>
+			</li>
+			<li class="inline-block middle">
+				<a href="#!" id="close" class="header--link block">
+					<span class="ion-close-round"></span>
+				</a>
+			</li>
+		</ul>
+	</header>
+	<div id="projects" class="projects px2 absolute left-0 bottom-0" style="top: 50px; right: calc(4/12 * 100%);">
+		<p class="bold m0 mt4 center">
+			<span class="spinner ion-load-c inline-block middle mr2"></span>
+			<span class="inline-block middle">Empezando la magia...</span>
+		</p>
+	</div>
+	<div class="new-project absolute right-0 bottom-0 p2" style="top: 50px;"></div>
+	<script src="js/maximize-on-init.js"></script>
+	<script src="js/show-dev-tools.js"></script>
+</body>
+</html>

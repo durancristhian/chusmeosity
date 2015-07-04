@@ -1,0 +1,28 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+body {
+	background: #eaebee;
+	color: #444;
+	font-size: 15px;
+	font-weight: normal;
+}
+.middle {
+	vertical-align: middle;
+}
+.spinner {
+	-webkit-animation: spinner .8s ease infinite;
+	color: #df6664;
+	font-size: 3em;
+	position: relative;
+}
+@-webkit-keyframes spinner {
+	to { -webkit-transform: rotate(360deg); }
+}
+.stretch {
+	width: 100%;
+}
