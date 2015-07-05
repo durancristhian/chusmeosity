@@ -50,6 +50,7 @@ input, textarea, select, button {
 }
 .loading {
 	background: rgba(22, 57, 97, .5);
+	display: none;
 	margin-left: calc(4/12 * 100%);
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, .25);
 	top: 50px;

@@ -1,24 +1,26 @@
 {
-	"name": "chusmeosity",
-	"version": "1.0.0",
-	"description": "chusmeosity is a nwjs app for testing purposes",
-	"main": "chusmeosity.html",
-	"scripts": {
-		"start": "nw"
-	},
-	"author": "Cristhian Duran",
-	"license": "MIT",
-	"window": { 
-		"frame": false,
-		"toolbar": false,
-		"icon": "images/chusmeosity.png",
-		"min_height": 668,
-		"min_width": 974,
-		"show": false,
-		"position": "center"
-	},
-	"dependencies": {
-		"browser-sync": "^2.7.13",
-		"nw": "^0.12.2"
-	}
+  "name": "chusmeosity",
+  "version": "1.0.0",
+  "description": "chusmeosity is a nwjs app for testing purposes",
+  "main": "chusmeosity.html",
+  "scripts": {
+    "start": "nw"
+  },
+  "author": "Cristhian Duran",
+  "license": "MIT",
+  "window": {
+    "frame": false,
+    "toolbar": false,
+    "icon": "images/chusmeosity.png",
+    "min_height": 668,
+    "min_width": 974,
+    "show": false,
+    "position": "center"
+  },
+  "dependencies": {
+    "browser-sync": "^2.7.13",
+    "lodash": "^3.10.0",
+    "node-uuid": "^1.4.3",
+    "nw": "^0.12.2"
+  }
 }

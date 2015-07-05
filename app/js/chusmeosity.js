@@ -7,43 +7,57 @@ $(window).on("load", function() {
 	});
 
 	var bs = require("browser-sync");
+	var workingDir = require("path").join(require("os").tmpDir(), "chusmeosity");
+	var dbPath = path.format({
+		dir : tmpDir,
+		base : "bd.json"
+	});
+	var db = getProjectsList();
+	var uuid = require("node-uuid");
+	var _ = require("lodash");
 
-	setTimeout(function() {
-
-		renderProjectsList();
-	}, 3000);
+	renderProjectsList();
 
 	function renderProjectsList() {
 
-		$.get("templates/project.tpl", function(template) {
+		$("#loading").fadeIn("slow");
+		$("#add-project button[type=submit").attr("disabled", true);
 
-			Mustache.parse(template);
+		setTimeout(function() {
 
-			var rendered = Mustache.render(template, {
-				project: getProjectsList()
+			$.get("templates/project.tpl", function(template) {
+
+				Mustache.parse(template);
+
+				var rendered = Mustache.render(template, {
+					project: db
+				});
+
+				$("#loading").fadeOut("fast", function() {
+
+					$("#projects").html(rendered).hide().fadeIn("slow");
+					$("#add-project button[type=submit").attr("disabled", false);
+				});
 			});
-
-			$("#loading").fadeOut("fast", function() {
-
-				$("#projects").html(rendered).hide().fadeIn("slow");
-			});
-		});
+		}, 3000);
 	};
 
 	function getProjectsList() {
-		return [{
-			directory: "D:\\Websites\\21co72.dev\\Website",
-			name: "21co",
-			url: "http://21co72.dev/"
-		}, {
-			directory: "D:\Websites\keynote71.dev\Website",
-			name: "Keynote",
-			url: "keynote71.dev"
-		}];
+
+		var db = fs.readFileSync(dbPath, "utf8");
+		db = JSON.parse(db || "[]");
+		return db;
 	};
 
-	$("#projects").on("click", ".project--init", function (event) {
-		event.preventDefault();
+	function saveProjectsList() {
+
+		fs.writeFile(dbPath, JSON.stringify(db), "utf8", function (err) {
+
+			if (err) throw err;
+		});
+	};
+
+	$("#projects").on("click", ".project--init", function () {
 		var currentProject = $(event.currentTarget).closest(".project");
 		startProject(currentProject);
 	});
@@ -95,9 +109,8 @@ $(window).on("load", function() {
 		}
 	};
 
-	$("#projects").on("click", ".project--stop", function (event) {
+	$("#projects").on("click", ".project--stop", function () {
 
-		event.preventDefault();
 		var currentProject = $(event.currentTarget).closest(".project");
 		stopProject(currentProject);
 	});
@@ -118,4 +131,41 @@ $(window).on("load", function() {
 		stopButton.hide();
 		initButton.fadeIn("slow");
 	};
+
+	$("#add-project").on("submit", function (event) {
+
+		event.preventDefault();
+		var directory = $(this).find(".input--directory").val();
+		var name = $(this).find(".input--name").val();
+		var url = $(this).find(".input--url").val();
+
+		var isValid = directory && name && url && true || false;
+
+		if (isValid) {
+
+			db.push({
+				directory: directory,
+				id: uuid.v1(),
+				name: name,
+				url: url
+			});
+
+			$(this).trigger("reset");
+
+			saveProjectsList();
+			renderProjectsList();
+		}
+	});
+
+	$("#projects").on("click", ".project--delete", function () {
+
+		var idToRemove = $(this).data("project-id");
+
+		_.remove(db, function(item) {
+			return item.id === idToRemove;
+		});
+
+		saveProjectsList();
+		renderProjectsList();
+	});
 });

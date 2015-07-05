@@ -28,7 +28,7 @@
 		<div class="ml2 mr2 mb1">
 			<div class="clearfix">
 				<div class="col col-6">
-					<button class="project--delete btn btn-primary border bg-red">
+					<button class="project--delete btn btn-primary border bg-red" data-project-id="{{id}}">
 						<span class="ion-trash-a"></span>
 						Eliminar
 					</button>
