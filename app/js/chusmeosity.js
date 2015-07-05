@@ -58,11 +58,15 @@ $(window).on("load", function() {
 	};
 
 	$("#projects").on("click", ".project--init", function () {
-		var currentProject = $(event.currentTarget).closest(".project");
+		var currentProject = $(event.target).closest(".project");
 		startProject(currentProject);
 	});
 
 	function startProject (currentProject) {
+		var directory = path.format({
+			dir : currentProject.data("project-directory"),
+			base : "**\\*.*"
+		});
 		var externalURL = currentProject.find(".project--external-url");
 		var deleteButton = currentProject.find(".project--delete");
 		var initButton = currentProject.find(".project--init");
@@ -75,6 +79,7 @@ $(window).on("load", function() {
 		initButton.hide();
 		spinner.fadeIn("slow");
 
+
 		if (currentProject.data("project-status") === "stopped") {
 
 			var project = bs.create(currentProject.data("project-name"));
@@ -85,6 +90,12 @@ $(window).on("load", function() {
 			});
 
 			project.emitter.on("service:running", function(data) {
+
+				project.watch(directory, function () {
+					setTimeout(function () {
+						project.reload();
+					}, 3000);
+				});
 
 				localURL.text(data.urls.local);
 				externalURL.text(data.urls.external);
@@ -100,6 +111,12 @@ $(window).on("load", function() {
 			var project = bs.get(currentProject.data("project-name"));
 			project.resume();
 
+			project.watch(directory, function () {
+				setTimeout(function () {
+					project.reload();
+				}, 3000);
+			});
+
 			projectInfo.slideDown("slow");
 
 			currentProject.data("project-status", "active");
@@ -111,7 +128,7 @@ $(window).on("load", function() {
 
 	$("#projects").on("click", ".project--stop", function () {
 
-		var currentProject = $(event.currentTarget).closest(".project");
+		var currentProject = $(event.target).closest(".project");
 		stopProject(currentProject);
 	});
 

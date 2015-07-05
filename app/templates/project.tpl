@@ -1,5 +1,5 @@
 {{#project}}
-	<div class="project mt2 rounded bg-white" data-project-name="{{name}}" data-project-url="{{url}}" data-project-status="stopped">
+	<div class="project mt2 rounded bg-white" data-project-name="{{name}}" data-project-url="{{url}}" data-project-status="stopped" data-project-directory="{{directory}}">
 		<h2 class="project--name m0 py2 px2">{{name}}</h2>
 		<div class="m2">
 			<div class="clearfix">
