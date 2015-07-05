@@ -58,7 +58,6 @@ input, textarea, select, button {
 	vertical-align: middle;
 }
 .new-project {
-	background: #f2756b;
 	top: 50px;
 	width: calc(4/12 * 100%);
 }
