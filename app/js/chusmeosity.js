@@ -1,4 +1,4 @@
-$(window).on("load", function () {
+$(window).on("load", function() {
 
 	$(".tooltip").tooltipster({
 		debug: false,
@@ -8,17 +8,23 @@ $(window).on("load", function () {
 
 	var bs = require("browser-sync");
 
-	setTimeout(function () {
+	setTimeout(function() {
 
 		renderProjectsList();
 	}, 3000);
 
 	function renderProjectsList() {
-		var projectsList = getProjectsList();
-		$.get("templates/project.tpl", function (template) {
+
+		$.get("templates/project.tpl", function(template) {
+
 			Mustache.parse(template);
-			var rendered = Mustache.render(template, { project: projectsList });
-			$("#loading").fadeOut("fast", function () {
+
+			var rendered = Mustache.render(template, {
+				project: getProjectsList()
+			});
+
+			$("#loading").fadeOut("fast", function() {
+
 				$("#projects").html(rendered).hide().fadeIn("slow");
 			});
 		});
@@ -43,7 +49,6 @@ $(window).on("load", function () {
 	});
 
 	function startProject (currentProject) {
-		var project = bs.create(currentProject.data("project-name"));
 		var externalURL = currentProject.find(".project--external-url");
 		var deleteButton = currentProject.find(".project--delete");
 		var initButton = currentProject.find(".project--init");
@@ -56,34 +61,58 @@ $(window).on("load", function () {
 		initButton.hide();
 		spinner.fadeIn("slow");
 
-		project.init({
-			logLevel: "silent", // output NOTHING to the commandline
-			proxy: currentProject.data("project-url") // Using a vhost-based url
-		});
+		if (currentProject.data("project-status") === "stopped") {
 
-		project.emitter.on("service:running", function(data) {
-			localURL.text(data.urls.local);
-			externalURL.text(data.urls.external);
+			var project = bs.create(currentProject.data("project-name"));
+
+			project.init({
+				logLevel: "silent", // output NOTHING to the commandline
+				proxy: currentProject.data("project-url") // Using a vhost-based url
+			});
+
+			project.emitter.on("service:running", function(data) {
+
+				localURL.text(data.urls.local);
+				externalURL.text(data.urls.external);
+				projectInfo.slideDown("slow");
+
+				currentProject.data("project-status", "active");
+
+				spinner.hide();
+				stopButton.fadeIn("slow");
+			});
+		} else {
+
+			var project = bs.get(currentProject.data("project-name"));
+			project.resume();
+
 			projectInfo.slideDown("slow");
+
+			currentProject.data("project-status", "active");
 
 			spinner.hide();
 			stopButton.fadeIn("slow");
-		});
+		}
 	};
 
 	$("#projects").on("click", ".project--stop", function (event) {
+
 		event.preventDefault();
 		var currentProject = $(event.currentTarget).closest(".project");
 		stopProject(currentProject);
 	});
 
 	function stopProject (currentProject) {
+
 		var deleteButton = currentProject.find(".project--delete");
 		var initButton = currentProject.find(".project--init");
 		var projectInfo = currentProject.find(".project--info");
 		var stopButton = currentProject.find(".project--stop");
 
 		bs.get(currentProject.data("project-name")).pause();
+
+		currentProject.data("project-status", "paused");
+
 		projectInfo.slideUp("slow");
 		deleteButton.attr("disabled", false);
 		stopButton.hide();
