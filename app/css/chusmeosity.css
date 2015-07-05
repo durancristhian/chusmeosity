@@ -80,8 +80,11 @@ input, textarea, select, button {
 	display: none;
 }
 .projects {
+	height: calc(100% - 50px);
+	padding-bottom: 1rem;
 	margin-left: calc(4/12 * 100%);
-	top: 50px;
+	margin-top: 50px;
+	overflow-y: scroll;
 }
 .spinner {
 	-webkit-animation: spinner .8s ease infinite;
