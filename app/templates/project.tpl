@@ -39,7 +39,7 @@
 							<span class="ion-play"></span>
 							Iniciar
 						</button>
-						<button class="project--spinner btn btn-primary border bg-yellow" disabled>
+						<button class="project--spinner btn btn-primary border bg-orange" disabled>
 							<span class="ion-load-c spinner"></span>
 							Iniciando...
 						</button>

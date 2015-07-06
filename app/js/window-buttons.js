@@ -5,6 +5,7 @@ $(window).on("load", function () {
 
 	win.isMaximixed = true;
 
+	$("#reload").on("click", reload);
 	$("#show-dev-tools").on("click", devTools);
 	$("#minimize").on("click", minimize);
 	$("#maximize").on("click", maximize);
@@ -21,6 +22,8 @@ $(window).on("load", function () {
 		$("#maximize span").removeClass("ion-arrow-shrink").addClass("ion-arrow-expand");
 		win.isMaximixed = false; 
 	});
+
+	function reload () 			{ win.reloadIgnoringCache(); }
 
 	function devTools () 		{ win.showDevTools(); }
 
